@@ -54,3 +54,62 @@ The `config/dev.exs`, it will set a reload compilers, and what does mean? it mea
 The `lib/my_app_web.ex`, it will import the surface for all the views.
 
 The `mix.exs`, it will have the surface compiler, for how to compile the surface code, and also raise any erro when its has, and add at least two dependencies, and it was `surface` itself, and `surface_formater`, but it could add the `surface_catalogue`.
+
+So, last not least, let's go and implements our tradicional "hello world" in Surface.
+
+We need to create a new route on `lib/my_app_web/router.ex`, and should be called:
+```diff
+scope "/", MyAppWeb do
+  pipe_through :browser
+
++ live "/count", CounterLive
+end
+```
+
+Create the `live` folder in `lib/my_app_web/live/`, and then create your `counter_live.ex`.
+
+And the code inside this file should be like this:
+```elixir
+defmodule MyAppWeb.CounterLive do
+  use Surface.LiveView
+
+  data count, :integer, default: 0
+
+  def render(assigns) do
+    ~F"""
+    <div>
+      <h1 class="title">
+        {@count}
+      </h1>
+      <div>
+        <button class="button is-info" :on-click="dec">
+          -
+        </button>
+        <button class="button is-info" :on-click="inc">
+          +
+        </button>
+      </div>
+    </div>
+    """
+  end
+
+  def handle_event("inc", _value, socket) do
+    {:noreply, update(socket, :count, &(&1 + 1))}
+  end
+
+  def handle_event("dec", _value, socket) do
+    {:noreply, update(socket, :count, &(&1 - 1))}
+  end
+end
+```
+
+Lets see line by line and understand each one of them.
+
+The `use Surface.LiveView`, it just a wrapper component around `Phoenix.LiveView`. In LiveView we normally use `use MyAppWeb, :live_view`.
+
+The [`data`](https://surface-ui.org/data) macro its the private API for Surface components in general, this means the component doesn't receive any external data when its called, and because this is a live_view itself it make sense has only private API. Also, we could skip to create the [`mount/3`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#c:mount/3) function, since we don't doing nothing complext that much to feel necessarily to have a mount function.
+
+The [`render/1`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#c:render/1) function it will rendering our template, and instead of using the `HEEX` sigil(`~H`), we re been using the Surface sigil(`~F`). And one of the ergonomics for Surface templates its we can use `{}` for embeded code, and not just only for embeded thing in HTML attributes for tags. And it has `:on-click` handle event for `inc` and `dec`, and to get more context for this handle event directive checking out [here](https://surface-ui.org/events#using-the-:on-[event]-directive).
+
+And this its how its look like our first suface page:
+![](./surface-count-live.mov)
