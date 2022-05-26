@@ -1,13 +1,17 @@
 # Building LiveView Apps with Surface Components
-Phoenix LiveView has been updating and receiving a lot of cool functionalities and turning into a more mature and stable tool to use and build applications.
+Phoenix LiveView has been updating and receiving a lot of cool functionalities and turning into a more mature and stable tool to use and build web applications.
 
-A few months ago, I started to learn Surface, and I decide to learn Surface to bring more color to LiveView applications.
+A few months ago, I started to learn Surface, and I surprise how Surface brings more color to LiveView applications.
 
 I decide to write a series of blog posts about Surface, and what I've learned from this journey.
 
-So, what is Surface? The Surface is a server-side rendering component library for Phoenix, as same as LiveView in many ways, and has its own Template DSL, this means instead of you use HEEx template, you can use the `~F()` sigil as same as LiveView has its own `~H()`, and also you can put the template into the file with the `.sface` extension. Also, Surface allows you to model your front-end components more intuitively with only a small Elixir portion, and this means you have some ways how to structure and present your user interface.
+So, what is Surface? The Surface is a server-side rendering component library for Phoenix, as same as LiveView in many ways, and has its own Template DSL, this means instead of you use `HEEx` template, you can use the `~F()` sigil as same as LiveView has  `~H()`, and also you can put the template into a file with the `.sface` extension. Also, Surface allows you to model your front-end components more intuitively with only a small Elixir portion, and this means you have some ways how to structure and present your user interface. To give you one example you can use `case` in the Surface template, also you can have more than that.
 
-Before going to the fun part, let me tell you what you expect to see here. You will see how to install, and initialize Surface in your project, and we will navigate and understand the diff between Surface patching to our project, write our Surface interface and see if everything is working, and wrap up what we learn about it.
+Before going to the fun part, let me tell you what you expect to see here.
+- You will see how to install, and initialize the Surface in your project.
+- We will navigate and understand the diff what is patching to our project.
+- Writing our first interface and seeing if everything is working.
+- Wrap up for all we did so far.
 
 ## Installing Surface
 Let's start by taking a look at how to install and use Surface in your Phoenix project.
@@ -280,7 +284,7 @@ Now, we need to increment and decrement the value in `@count`. How are we gonna 
 
 The surface has this `:on-[event]` directive as the same as `phx-[event]`. In case you like to take a look at the [LiveView Bindings](https://hexdocs.pm/phoenix_live_view/bindings.html), and here you could compare it with [Surface Events](https://surface-ui.org/events).
 
-Bear with us, we are almost finished, and for [`handle_event/3`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#c:handle_event/3) is the same for both.
+Bear with us, we are almost finished and [`handle_event/3`](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.html#c:handle_event/3) is the same for both.
 
 ### preview
 
